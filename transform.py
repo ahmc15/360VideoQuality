@@ -4,20 +4,69 @@
 # 
 import numpy as np
 
-def xyz_2_polar(x: float, y:float, z:float):
-    phi= 
 
-    return pass
 
-def 2Dcoord_3Dcoord(m,n,H,W):
+def 2Dcoord_3Dcoord(m: float,n: float,H: float,W: float):
+    '''
+    transforma a coordenada 2D da projeção equiretangular em 
+    Input:
+        m = index of the colummns
+        n = index of the rows
+        H = size of the height
+        W = size of the width        
+    '''
     u = (m+0.5)/W
     v = (n+0.5/H)
     Phi = (u-0.5)*(2*np.pi)
     Theta = (0.5-v)*np.pi
+    X = np.cos(Theta)*np.cos(Phi)
+    Y = np.sin(Theta)
+    Z = (-1)*np.cos(Theta)*np.sin(Phi)
     
-    return Theta, Phi
+    return X,Y,Z
 
+def 2Dcoord_Polar(M: float,n: float,H: float,W: float):
+    '''
+    '''
+    u = (m+0.5)/W
+    v = (n+0.5/H)
+    Phi = (u-0.5)*(2*np.pi)
+    Theta = (0.5-v)*np.pi
 
-def EQP():
-    pass
+    return Theta,Phi
+    
+
+def CMP_3Dcoord(m: float,n: float,f: int,H: float,W: float):
+    
+    Ah = H / 2  # face is a square. u
+    Aw = W / 3  # face is a square. v
+    u = (m + 0.5) * 2 / Ah - 1
+    v = (n + 0.5) * 2 / Aw - 1
+    if f == 0:
+        x = 1.0
+        y = -v
+        z = -u 
+    elif f == 1:
+        x = -1.0
+        y = -v
+        z = u
+    elif f == 2:
+        x = u
+        y = 1.0
+        z = v
+    elif f == 3:
+        x = u
+        y = -1.0
+        z = -v
+    elif f == 4:
+        x = u
+        y = -v
+        z = 1.0
+    elif f == 5:                                
+        x = -u
+        y = -v
+        z = -1.0
+            
+    
+    return x,y,z
 print("transforms")
